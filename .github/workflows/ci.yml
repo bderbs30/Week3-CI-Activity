@@ -1,0 +1,33 @@
+# Runs on every commit to the main branch
+# Runs on every pull request to the main branch
+# Runs when manually started by the user
+# Installs required OS package dependencies and npm dependencies
+# Runs all tests
+
+name: Setup Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
